@@ -7,13 +7,17 @@ import (
 	"net/http"
 	"os"
 	"strings"
+	"strconv"
 )
 
 func main() {
+	port := 8080
 	http.HandleFunc("/", HttpHandler)
 	http.HandleFunc("/healthz", HealthZ)
 
-	err := http.ListenAndServe(":8080", nil)
+	portstr := ":" +  strconv.Itoa(port)
+	log.Printf("httpserver listend port: %+v", port)
+	err := http.ListenAndServe(portstr, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
